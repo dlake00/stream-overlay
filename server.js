@@ -14,11 +14,11 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Run when client connects
 io.on("connection", socket => {
-    console.log("Client ID " + socket.id + " has connected")
+    console.log("Client ID: [" + socket.id + "] has connected")
 
     // Run when client disconnects
     socket.on("disconnect", reason => {
-        console.log("Client ID " + socket.id + " has disconnected")
+        console.log("Client ID: [" + socket.id + "] has disconnected")
     })
 })
 

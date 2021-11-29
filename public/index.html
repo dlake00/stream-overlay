@@ -4,13 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Overlay Client</title>
+    <title>Livestream Overlay Manager</title>
     <link rel="stylesheet" href="css/styles.css">
   </head>
   <body>
-    This is the client
+    <h1>This is the index</h1>
+
+    <button id="btn_client" type="button" onclick="window.open('overlay.html')">Create Client</button>
+    <button id="btn_control" type="button" onclick="window.open('control.html')">Create Control</button>
+
+    <h2>List of Active Clients</h2>
+
+    <ul id="list_client">
+
+    </ul>
+
+    <h2>List of Active Control Panels</h2>
+
+    <ul id="list_control">
+
+    </ul>
 
     <script src="/socket.io/socket.io.js"></script>
-    <script src="js/client.js"></script>
+    <script src="js/manager.js"></script>
   </body>
 </html>
