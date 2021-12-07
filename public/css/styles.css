@@ -1,0 +1,11 @@
+/* CSS Overrides */
+
+html {
+    width:100%;
+    background: rgba(0,0,0,0.01);
+    min-height: 100%;
+}
+
+h1 {
+    color: #ffffff;
+}
