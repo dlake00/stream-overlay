@@ -1,7 +1,6 @@
 const path = require("path");
 const http = require("http");
 const express = require("express");
-const bodyParser = require("body-parser");
 const socketio = require("socket.io");
 
 const app = express();
@@ -24,10 +23,10 @@ io.on("connection", socket => {
     })
 })
 
-// body-parser middleware for URL handling
-app.use(bodyParser.urlencoded({ extended: false }));
-
+// URL handling
+app.use(express.urlencoded({ extended: false }));
 // Specify URL prefix and import routes
 app.use("/", require("./routes"));
 
+// Run server listen on PORT 3000
 server.listen(PORT, () => console.log(`Server running on ${PORT}`));
