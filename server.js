@@ -19,31 +19,31 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Run when index connects
 io.on("connection", socket => {
-    console.log("Index ID: [" + socket.id + "] has connected")
+    console.log("connected: [ID: " + socket.id + ", type: index]")
 
     // Run when client disconnects
     socket.on("disconnect", reason => {
-        console.log("Index ID: [" + socket.id + "] has disconnected")
+        console.log("disconnected: [ID: " + socket.id + ", type: index, reason: " + reason + "]")
     })
 })
 
 // Run when admin connects
 ioAdmin.on("connection", socket => {
-    console.log("Admin ID: [" + socket.id + "] has connected")
+    console.log("connected: [ID: " + socket.id + ", type: admin]")
 
     // Run when client disconnects
     socket.on("disconnect", reason => {
-        console.log("Admin ID: [" + socket.id + "] has disconnected")
+        console.log("disconnected: [admin ID: " + socket.id + ", type: admin, reason: " + reason + "]")
     })
 })
 
 // Run when client connects
 ioClient.on("connection", socket => {
-    console.log("Client ID: [" + socket.id + "] has connected")
+    console.log("connected: [ID: " + socket.id + ", type: client]")
 
     // Run when client disconnects
     socket.on("disconnect", reason => {
-        console.log("Client ID: [" + socket.id + "] has disconnected")
+        console.log("disconnected: [client ID: " + socket.id + ", type: client, reason: " + reason + "]")
     })
 })
 
