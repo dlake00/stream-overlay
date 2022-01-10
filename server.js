@@ -11,6 +11,7 @@ const io = socketio(server);
 // Namespaces
 const ioAdmin = io.of("/admin");
 const ioClient = io.of("/overlay");
+const ioSplash = io.of("/splash");
 
 // Set static folder
 app.use(express.static(path.join(__dirname, "public")));
@@ -39,6 +40,16 @@ ioAdmin.on("connection", socket => {
 
 // Run when client connects
 ioClient.on("connection", socket => {
+    console.log("connected: [ID: " + socket.id + ", type: client]")
+
+    // Run when client disconnects
+    socket.on("disconnect", reason => {
+        console.log("disconnected: [client ID: " + socket.id + ", type: client, reason: " + reason + "]")
+    })
+})
+
+// Run when splash connects
+ioSplash.on("connection", socket => {
     console.log("connected: [ID: " + socket.id + ", type: client]")
 
     // Run when client disconnects
