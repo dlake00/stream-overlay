@@ -26,41 +26,42 @@
     <title>Livestream Splash Client</title>
   </head>
   <body>
-    <!-- Top left corner -->
-    <div class="container position-absolute top-0 start-0 m-3">
+    <!-- Background splash screen image -->
+    <img src="img/bg.jpg" class="position-absolute top-50 start-50 translate-middle" style="height: 1080px;" alt="Background">
+
+    <header>
+    <!-- Title container w/ subtitle, top left corner -->
+    <div class="container position-absolute top-0 start-0 m-5">
+      <h1 id="title" class="text-light"><strong>Medway Council </strong></h1>
+      <h1 id="date" class="lead text-light pb-5"></h1>
+      <h5 class="text-light">
+        <i class="bi bi-facebook"></i> medwaycouncilupdates<br>
+        <i class="bi bi-twitter"></i> medway_council<br>
+        <i class="bi bi-youtube"></i> medwaycouncil
+      </h5>
+    </div>
+    </header>
+
+    <footer>
+    <!-- Medway Council social media links, bottom left corner -->
+    <div class="container position-absolute bottom-0 start-0 m-5">
     </div>
 
-    <!-- Top right corner -->
-    <div class="container position-absolute top-0 end-0 m-3">
+    <!-- Medway Council logo w/ clock display, bottom right corner -->
+    <div class="container position-absolute bottom-0 end-0 m-5">
+      <div class="float-end">
+        <img src="img/logo/logo_white.png" class="img-fluid pb-3" style="width: 160px;" alt="Medway Council Logo">
+        <h3 class="text-light text-center border-top border-1 border-light pt-2" id="clock"></h3>
+      </div>
     </div>
+    </footer>
 
-    <!-- Custom message container w/ icon, center screen -->
-    <div class="container position-absolute top-50 start-50 translate-middle">
-      <h3 class="display-5 text-light text-center">
-        <span class="border border-dark rounded-3 bg-dark p-3">
-          <strong><em>Be right back!</em></strong>
-        </span>
-      </h3>
-    </div>
-
-    <!-- Bottom left corner -->
-    <div class="container position-absolute bottom-0 start-0 m-3">
-      <h1 id="title" class="text-light"><strong>3DLAKE</strong></h1>
-      <h3 class="text-light" id="clock"></h3>
-      <h5 id="date" class="text-light"></h5>
-    </div>
-
-    <!-- Bottom right corner -->
-    <div class="container position-absolute bottom-0 end-0 m-3">
-    </div>
-
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="js/splash.js"></script>
-
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" 
       crossorigin="anonymous"></script>
-
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/splash.js"></script>
     <script src="js/clock.js"></script>
     <script src="js/date.js"></script>
   </body>

@@ -1,3 +1,4 @@
+/* INITIALISE CONSTANTS */
 const path = require("path");
 const http = require("http");
 const express = require("express");
@@ -8,60 +9,96 @@ const server = http.createServer(app);
 const PORT = process.env.PORT || 3000;
 const io = socketio(server);
 
-// Namespaces
-const ioAdmin = io.of("/admin");
-const ioClient = io.of("/overlay");
-const ioSplash = io.of("/splash");
+/* NAMESPACES */
+const admin = io.of("/admin");
+const overlay = io.of("/overlay");
+const splash = io.of("/splash");
 
-// Set static folder
+/* SET STATIC FOLDER */
 app.use(express.static(path.join(__dirname, "public")));
 
-// Set CORS
+/* SET CORS */
+
+/* FUNCTIONS */
+
+/**
+ * Returns array of all OVERLAY sockets and emit to MANAGER
+ * @returns None
+ */
+function getOverlayArr() {
+    var overlayIDs = Array.from(io.of('/overlay').sockets.keys());
+    var overlayCount = overlayIDs.length;
+    io.sockets.emit("overlay-list", overlayIDs, overlayCount);
+    return;
+}
+
+/**
+ * Get array of all SPLASH sockets and emit to MANAGER
+ * @returns None
+ */
+function getSplashArr() {
+    var splashIDs = Array.from(io.of('/splash').sockets.keys());
+    var splashCount = splashIDs.length;
+    io.sockets.emit("splash-list", splashIDs, splashCount)
+    return;
+}
+
+/* SOCKET CONNECTION HANDLING */
 
 // Run when index connects
 io.on("connection", socket => {
     console.log("connected: [ID: " + socket.id + ", type: index]")
 
-    // Run when client disconnects
+    getOverlayArr();
+    getSplashArr();
+
+    // Run when index disconnects
     socket.on("disconnect", reason => {
         console.log("disconnected: [ID: " + socket.id + ", type: index, reason: " + reason + "]")
     })
 })
 
 // Run when admin connects
-ioAdmin.on("connection", socket => {
+admin.on("connection", socket => {
     console.log("connected: [ID: " + socket.id + ", type: admin]")
 
-    // Run when client disconnects
+    // Run when admin disconnects
     socket.on("disconnect", reason => {
-        console.log("disconnected: [admin ID: " + socket.id + ", type: admin, reason: " + reason + "]")
+        console.log("disconnected: [ID: " + socket.id + ", type: admin, reason: " + reason + "]")
     })
 })
 
-// Run when client connects
-ioClient.on("connection", socket => {
-    console.log("connected: [ID: " + socket.id + ", type: client]")
+// Run when overlay connects
+overlay.on("connection", socket => {
+    console.log("connected: [ID: " + socket.id + ", type: overlay]")
 
-    // Run when client disconnects
+    getOverlayArr();
+
+    // Run when overlay disconnects
     socket.on("disconnect", reason => {
-        console.log("disconnected: [client ID: " + socket.id + ", type: client, reason: " + reason + "]")
+        console.log("disconnected: [ID: " + socket.id + ", type: overlay, reason: " + reason + "]")
+        getOverlayArr();
     })
 })
 
 // Run when splash connects
-ioSplash.on("connection", socket => {
-    console.log("connected: [ID: " + socket.id + ", type: client]")
+splash.on("connection", socket => {
+    console.log("connected: [ID: " + socket.id + ", type: splash]")
 
-    // Run when client disconnects
+    getSplashArr();
+
+    // Run when splash disconnects
     socket.on("disconnect", reason => {
-        console.log("disconnected: [client ID: " + socket.id + ", type: client, reason: " + reason + "]")
+        console.log("disconnected: [ID: " + socket.id + ", type: splash, reason: " + reason + "]")
+        getSplashArr();
     })
 })
 
-// URL handling
+/* URL HANDLING */
 app.use(express.urlencoded({ extended: false }));
-// Specify URL prefix and import routes
+
+/* SPECIFY URL PREFIX AND IMPORT ROUTES */
 app.use("/", require("./routes"));
 
-// Run server listen on PORT 3000
+/* RUN SERVER LISTEN ON PORT 3000 */
 server.listen(PORT, () => console.log(`Server running on ${PORT}`));

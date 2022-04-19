@@ -7,10 +7,6 @@
 
 html{
     background: rgba(0,0,0,0.01);
-    background-image: url("../img/98-bg-008080.png");
     height: 100%;
-}
-
-body {
-  min-height: 100%;
+    width: 100%;
 }
