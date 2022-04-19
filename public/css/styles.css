@@ -1,9 +1,58 @@
 /* CSS Overrides */
+* { 
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-html {
-    width:100%;
+html{
     background: rgba(0,0,0,0.01);
-    min-height: 100%;
+    background-image: url("../img/98-bg-008080.png");
+    height: 100%;
+}
+
+body {
+  min-height: 100%;
+}
+
+.window-game {
+  width: 1600px;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.window-body-game {
+  height: 900px;
+}
+
+.window-game-mini {
+  width: 1920px;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.window-body-game-mini {
+  height: 1038px;
+  opacity: 0.1;
+}
+
+.window-cam {
+  width: 480px;
+  margin: 0;
+  position: absolute;
+  top: 25%;
+  left: 75%;
+  transform: translate(-5%, -85%);
+}
+
+.window-body-cam {
+  height: 240px;
 }
 
 /* CSS Animation */
