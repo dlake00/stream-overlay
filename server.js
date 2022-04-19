@@ -26,9 +26,9 @@ app.use(express.static(path.join(__dirname, "public")));
  * @returns None
  */
 function getOverlayArr() {
-    var overlayIDs = Array.from(io.of('/overlay').sockets.keys());
+    var overlayIDs = Array.from(io.of("/overlay").sockets.keys());
     var overlayCount = overlayIDs.length;
-    io.sockets.emit("overlay-list", overlayIDs, overlayCount);
+    io.of("/admin").emit("overlay-list", overlayIDs, overlayCount);
     return;
 }
 
@@ -37,9 +37,9 @@ function getOverlayArr() {
  * @returns None
  */
 function getSplashArr() {
-    var splashIDs = Array.from(io.of('/splash').sockets.keys());
+    var splashIDs = Array.from(io.of("/splash").sockets.keys());
     var splashCount = splashIDs.length;
-    io.sockets.emit("splash-list", splashIDs, splashCount)
+    io.of("/admin").emit("splash-list", splashIDs, splashCount)
     return;
 }
 
@@ -48,9 +48,6 @@ function getSplashArr() {
 // Run when index connects
 io.on("connection", socket => {
     console.log("connected: [ID: " + socket.id + ", type: index]")
-
-    getOverlayArr();
-    getSplashArr();
 
     // Run when index disconnects
     socket.on("disconnect", reason => {
@@ -61,6 +58,9 @@ io.on("connection", socket => {
 // Run when admin connects
 admin.on("connection", socket => {
     console.log("connected: [ID: " + socket.id + ", type: admin]")
+
+    getOverlayArr();
+    getSplashArr();
 
     // Run when admin disconnects
     socket.on("disconnect", reason => {
