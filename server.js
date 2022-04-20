@@ -43,6 +43,14 @@ function getSplashArr() {
     return;
 }
 
+/**
+ * Toggle title of SPLASH socket by ID
+ * @returns None
+ */
+function splashTitleToggle(id) {
+    io.of("/splash").to(id).emit("titleToggle")
+}
+
 /* SOCKET CONNECTION HANDLING */
 
 // Run when index connects
@@ -61,6 +69,11 @@ admin.on("connection", socket => {
 
     getOverlayArr();
     getSplashArr();
+
+    // Title Toggle Function
+    socket.on("splash-title-toggle", (id) => {
+        io.of("/splash").to(id).emit("title-toggle")
+    })
 
     // Run when admin disconnects
     socket.on("disconnect", reason => {

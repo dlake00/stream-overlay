@@ -1,10 +1,9 @@
 const socket = io("http://localhost:3000/admin");
 
-var btn_overlay = document.getElementById('btn_overlay');
-var btn_splash = document.getElementById('btn_splash');
-
 var list_overlay = document.getElementById('list_overlay');
 var list_splash = document.getElementById('list_splash');
+
+/* EVENT LISTENERS */
 
 socket.on("overlay-list", (overlayIDs, overlayCount) => {
     var overlays = overlayIDs;
@@ -24,11 +23,17 @@ socket.on("splash-list", (splashIDs, splashCount) => {
     list_splash.getElementsByTagName('ul')[0].innerHTML = "";
 
     for (let i in splashes) {
-        list_splash.getElementsByTagName('ul')[0].innerHTML += ('<li id=' + splashes[i] + ' class=\"list-group-item"\>ID: ' + splashes[i] + '</li>');
+        list_splash.getElementsByTagName('ul')[0].innerHTML += ('<li id=' + splashes[i] + ' class=\"list-group-item list-group-item-action"\ onclick=\"splashTitleToggle(\'' + splashes[i] + '\')">ID: ' + splashes[i] + '</li>');
     }
 
     list_splash.getElementsByTagName('span')[0].innerHTML = splashCount;
 })
+
+/* EVENT HANDLERS */
+
+function splashTitleToggle(id) {
+    socket.emit("splash-title-toggle", id)
+}
 
 /* DEBUG */
 

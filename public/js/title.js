@@ -1,6 +1,4 @@
-const socket = io("http://localhost:3000/splash");
-
-socket.on("title-toggle", () => {
+function titleToggle() {
     var x = document.getElementById('container_title');
 
     if (x.style.visibility === 'hidden') {
@@ -9,4 +7,4 @@ socket.on("title-toggle", () => {
     else {
         x.style.visibility = 'hidden';
     }
-})
+}
