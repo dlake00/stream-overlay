@@ -44,11 +44,13 @@ function getSplashArr() {
 }
 
 /**
- * Toggle title of SPLASH socket by ID
- * @returns None
+ * Element Toggle Function 
+ * @param {string} namespace target namespace to emit event
+ * @param {string} id target socket ID
+ * @param {string} element target element to toggle
  */
-function splashTitleToggle(id) {
-    io.of("/splash").to(id).emit("titleToggle")
+function elementToggle(namespace, id, element) {
+    io.of("/" + namespace).to(id).emit("element-toggle", element)
 }
 
 /* SOCKET CONNECTION HANDLING */
@@ -70,9 +72,8 @@ admin.on("connection", socket => {
     getOverlayArr();
     getSplashArr();
 
-    // Title Toggle Function
-    socket.on("splash-title-toggle", (id) => {
-        io.of("/splash").to(id).emit("title-toggle")
+    socket.on("element-toggle", (namespace, id, element) => {
+        elementToggle(namespace, id, element)
     })
 
     // Run when admin disconnects
